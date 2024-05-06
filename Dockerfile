@@ -51,4 +51,4 @@ RUN pecl install -o -f redis \
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-CMD sh /app/docker/startup.sh
+CMD sh ./docker/startup.sh
