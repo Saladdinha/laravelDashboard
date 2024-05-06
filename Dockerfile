@@ -42,4 +42,6 @@ RUN pecl install -o -f redis \
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
+EXPOSE 8080
+
 CMD bash -c "composer install && php artisan serve --host=0.0.0.0 --port=8080"
