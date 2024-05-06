@@ -41,3 +41,7 @@ RUN pecl install -o -f redis \
 
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
+
+RUN php artisan migrate
+
+RUN php artisan serve --host=0.0.0.0 --port=8080
