@@ -25,6 +25,7 @@ fi
 php artisan clear
 php artisan optimize:clear
 php artisan migrate
+echo 'socorro'
 
 # Fix files ownership.
 chown -R www-data .
