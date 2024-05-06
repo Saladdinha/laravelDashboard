@@ -1,0 +1,26 @@
+runtime: php
+env: flex
+
+runtime_config: document_root: public
+
+# Ensure we skip ".env", which is only for local development
+skip_files: 
+    - .env
+
+automatic_scaling:
+    min_num_instances: 1
+    max_num_instances: 1
+
+resources:
+    cpu: 2
+    memory_gb: 4
+    disk_size_gb: 20
+
+env_variables:
+    # Put production environment variables here.
+    APP_DEBUG: true
+    APP_ENV: production
+    APP_KEY: base64:0K1b+GXFAR0y/ROvn7EPWKv5JpjnOL+Xo192BDspjV4=
+    APP_NAME: "W2C-Marketing-Dashboard"
+
+    LOG_LEVEL: debug
