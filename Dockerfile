@@ -1,43 +1,26 @@
-FROM php:8.3-fpm
+# Used for prod build.
+FROM test as php
 
-# set your user name, ex: user=carlos
-ARG user=saladdinha
-ARG uid=1000
+# Copy configuration files.
+COPY ./docker/php/php.ini /usr/local/etc/php/php.ini
+COPY ./docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
+COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
+# Set working directory to ...
 WORKDIR /var/www/
 
-# Linux Library
-RUN apt-get update -y && apt-get install -y \
-    git \
-    curl \
-    libpng-dev \
-    libonig-dev \
-    libxml2-dev \
-    libpq-dev \
-    postgresql \
-    libjpeg-dev \
-    libfreetype6-dev \
-    zip \
-    unzip \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install pdo_pgsql
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Copy files from current folder to container current folder (set in workdir).
+COPY --chown=www-data:www-data . .
 
-# Get latest Composer
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# Create laravel caching folders.
+RUN mkdir -p ./storage/framework
+RUN mkdir -p ./storage/framework/{cache, testing, sessions, views}
+RUN mkdir -p ./storage/framework/bootstrap
+RUN mkdir -p ./storage/framework/bootstrap/cache
 
-# PHP Extension
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd sockets
+# Adjust user permission & group.
+RUN usermod --uid 1000 www-data
+RUN groupmod --gid 1000  www-data
 
-# Create system user to run Composer and Artisan Commands
-RUN useradd -G www-data,root -u $uid -d /home/$user $user
-RUN mkdir -p /home/$user/.composer && \
-    chown -R $user:$user /home/$user
-
-# Install redis
-RUN pecl install -o -f redis \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable redis
-
-# Copy custom configurations PHP
-COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
+# Run the entrypoint file.
+ENTRYPOINT [ "docker/entrypoint.sh" ]

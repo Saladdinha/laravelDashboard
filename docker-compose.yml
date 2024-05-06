@@ -1,54 +1,17 @@
 version: "3.8"
-
 services:
-  # image project
-  app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: unless-stopped
-    working_dir: /var/www/
-    volumes:
-      - ./:/var/www/
-    depends_on:
-      - redis
-    networks:
-      - W2C-Marketing-Network
+    api:
+        container_name: api
+        build:
+            context: .
+            target: php
+            args:
+                - APP_ENV=${APP_ENV}
+        environment:
+            - APP_ENV=${APP_ENV}
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www/
+        ports:
+            - 8080:8080
 
-  # nginx
-  nginx:
-    image: nginx:alpine
-    restart: unless-stopped
-    ports:
-      - "8989:80"
-    volumes:
-      - ./:/var/www
-      - ./docker/nginx/:/etc/nginx/conf.d/
-    networks:
-      - W2C-Marketing-Network
-
-  # db postgres
-  pgsql:
-    image: postgres
-    container_name: ${CONTAINER_NAME}
-    restart: always
-    environment:
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-      - POSTGRES_DB=${POSTGRES_DB}
-    ports: 
-      - "5432:5432"
-    volumes:
-      - './postgresql:/var/lib/postgresql/data'
-    networks:
-      - W2C-Marketing-Network
-
-  # redis
-  redis:
-    image: redis:latest
-    networks:
-      - W2C-Marketing-Network
-
-networks:
-  W2C-Marketing-Network:
-    driver: bridge
