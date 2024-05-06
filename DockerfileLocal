@@ -4,7 +4,7 @@ FROM php:8.3-fpm
 ARG user=saladdinha
 ARG uid=1000
 
-WORKDIR /var/www/
+WORKDIR /app
 
 # Linux Library
 RUN apt-get update -y && apt-get install -y \
