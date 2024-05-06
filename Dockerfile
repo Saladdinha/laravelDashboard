@@ -6,6 +6,12 @@ ARG uid=1000
 
 WORKDIR /var/www/
 
+RUN apk add --no-cache nginx wget
+
+RUN mkdir -p /run/nginx
+
+COPY docker/nginx/nginx.conf /etc/nginx/nginx.con
+
 # Linux Library
 RUN apt-get update -y && apt-get install -y \
     git \
@@ -34,6 +40,9 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+RUN composer install --ignore-platform-reqs --prefer-dist --no-scripts \
+    --no-progress --no-suggest --no-interaction --no-dev --no-autoloader
+
 # Install redis
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -42,6 +51,4 @@ RUN pecl install -o -f redis \
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-EXPOSE 8080
-
-CMD bash -c "composer install && php artisan serve --host=0.0.0.0 --port=8080"
+CMD sh /app/docker/startup.sh

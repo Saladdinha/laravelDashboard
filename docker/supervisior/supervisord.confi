@@ -1,0 +1,16 @@
+[supervisord]
+nodaemon=true
+stopasgroup=true
+
+[program:php-fpm]
+command=php-fpm
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=8
+stderr_logfiles=/dev/stderr
+
+[program:nginx]
+command=nginx
+stdout_logfile=/dev/stdout
+stdout_logfile_maxbytes=8
+stderr_logfiles=/dev/stderr
+stderr_logfile_maxbytes=8
