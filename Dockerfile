@@ -22,5 +22,9 @@ RUN mkdir -p ./storage/framework/bootstrap/cache
 RUN usermod --uid 1000 www-data
 RUN groupmod --gid 1000  www-data
 
+USER airflow
+WORKDIR ${AIRFLOW_HOME}
+RUN chmod +x entrypoint.sh
+
 # Run the entrypoint file.
 ENTRYPOINT [ "docker/entrypoint.sh" ]
