@@ -9,7 +9,6 @@ APP_LOCALE=pt-br
 APP_FALLBACK_LOCALE=pt-br
 APP_FAKER_LOCALE=pt_BR
 
-#docker-compose pgsql
 POSTGRES_USER=postgres
 POSTGRES_PASSWORD=w2cBD2024@
 POSTGRES_DB=postgres
