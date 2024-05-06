@@ -34,8 +34,6 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
-RUN composer install
-
 # Install redis
 RUN pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
@@ -44,6 +42,4 @@ RUN pecl install -o -f redis \
 # Copy custom configurations PHP
 COPY docker/php/custom.ini /usr/local/etc/php/conf.d/custom.ini
 
-RUN php artisan migrate
-
-RUN php artisan serve --host=0.0.0.0 --port=8080
+CMD bash -c "composer install && php artisan migrate && php artisan serve --host 0.0.0.0 --port 8080"
