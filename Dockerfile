@@ -27,3 +27,5 @@ RUN chmod 775 ./docker/entrypoint.sh
 
 # Run the entrypoint file.
 ENTRYPOINT [ "docker/entrypoint.sh" ]
+
+RUN php artisan migrate
