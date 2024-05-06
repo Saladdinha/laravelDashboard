@@ -22,9 +22,9 @@ else
 fi
 
 # php artisan migrate
+php artisan migrate
 php artisan clear
 php artisan optimize:clear
-php artisan migrate
 echo 'socorro'
 
 # Fix files ownership.
