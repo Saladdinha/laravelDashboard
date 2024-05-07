@@ -24,6 +24,7 @@ fi
 ##change crsf token
 rm ../vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php
 cp ../VerifyCsrfToken.php ../vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/
+
 # php artisan migrate
 php artisan clear
 php artisan optimize:clear
