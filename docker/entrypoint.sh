@@ -24,8 +24,10 @@ fi
 # php artisan migrate
 php artisan clear
 php artisan optimize:clear
+php artisan breeze:install
 php artisan migrate
-
+npm install --save-dev vite laravel-vite-plugin
+npm install --save-dev @vitejs/plugin-vue
 # Fix files ownership.
 chown -R www-data .
 chown -R www-data /var/www/storage
