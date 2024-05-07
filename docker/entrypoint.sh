@@ -25,7 +25,6 @@ fi
 php artisan clear
 php artisan optimize:clear
 php artisan breeze:install
-php artisan migrate
 
 # Fix files ownership.
 chown -R www-data .
