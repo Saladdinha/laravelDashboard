@@ -9,9 +9,9 @@ services:
                 - APP_ENV=${APP_ENV}
         environment:
             - APP_ENV=${APP_ENV}
-        working_dir: /app
+        working_dir: /var/www/
         volumes:
-            - ./:/app
+            - ./:/var/www/
         ports:
             - 8080:8080
 

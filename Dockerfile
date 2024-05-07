@@ -7,9 +7,7 @@ COPY ./docker/php/php-fpm.conf /usr/local/etc/php-fpm.d/www.conf
 COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 
 # Set working directory to ...
-WORKDIR /app
-
-COPY . /app
+WORKDIR /var/www/
 
 # Copy files from current folder to container current folder (set in workdir).
 COPY --chown=www-data:www-data . .
