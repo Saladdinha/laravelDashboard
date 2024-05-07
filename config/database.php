@@ -81,12 +81,12 @@ return [
 
         'pgsql' => [
             'driver' => 'pgsql',
-            'url' => env('DB_URL'),
+            'url' => env('DB_URL', 'prod-lavarel-api.c1iw46gs6c8m.us-east-2.rds.amazonaws.com'),
             'host' => env('DB_HOST', 'prod-lavarel-api.c1iw46gs6c8m.us-east-2.rds.amazonaws.com'),
             'port' => env('DB_PORT', '5432'),
             'database' => env('DB_DATABASE', 'postgres'),
             'username' => env('DB_USERNAME', 'postgres'),
-            'password' => env('DB_PASSWORD', 'w2cBD2024@'),
+            'password' => env('DB_PASSWORD', 'w2cBD2024'),
             'charset' => env('DB_CHARSET', 'utf8'),
             'prefix' => '',
             'prefix_indexes' => true,
