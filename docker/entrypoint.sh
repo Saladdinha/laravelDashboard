@@ -28,6 +28,9 @@ php artisan breeze:install
 
 npm install --save-dev vite laravel-vite-plugin
 npm install --save-dev @vitejs/plugin-vue
+
+npm run build
+
 # Fix files ownership.
 chown -R www-data .
 chown -R www-data /var/www/storage
