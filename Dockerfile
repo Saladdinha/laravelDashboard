@@ -25,5 +25,7 @@ RUN groupmod --gid 1000  www-data
 RUN chmod 775 docker/
 RUN chmod 775 ./docker/entrypoint.sh
 
+RUN apt-get install -y npm
+
 # Run the entrypoint file
 ENTRYPOINT [ "docker/entrypoint.sh" ]
