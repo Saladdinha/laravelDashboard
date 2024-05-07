@@ -9,6 +9,8 @@ COPY ./docker/nginx/nginx.conf /etc/nginx/nginx.conf
 # Set working directory to ...
 WORKDIR /app
 
+COPY . /app
+
 # Copy files from current folder to container current folder (set in workdir).
 COPY --chown=www-data:www-data . .
 
@@ -27,5 +29,3 @@ RUN chmod 775 ./docker/entrypoint.sh
 
 # Run the entrypoint file.
 ENTRYPOINT [ "docker/entrypoint.sh" ]
-
-CMD ["php artisan migrate"]
